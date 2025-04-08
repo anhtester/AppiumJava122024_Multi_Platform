@@ -1,0 +1,60 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite Regression Test" verbose="1" parallel="tests">
+
+    <test name="Platform Android Test 1 - Taurus App">
+        <parameter name="platformName" value="Android"/>
+        <parameter name="platformVersion" value="15"/>
+        <parameter name="deviceName" value="Pixel_8_Pro_API_35_2"/>
+        <parameter name="udid" value="emulator-5554"/>
+        <parameter name="automationName" value="UiAutomator2"/>
+        <parameter name="appPackage" value="com.anhtester.mobile_app.taurus"/>
+        <parameter name="appActivity" value="com.anhtester.mobile_app.taurus.MainActivity"/>
+        <parameter name="noReset" value="false"/>
+        <parameter name="fullReset" value="false"/>
+        <parameter name="autoGrantPermissions" value="true"/>
+        <parameter name="host" value="127.0.0.1"/>
+        <parameter name="port" value="8000"/>
+        <parameter name="systemPort" value="8201"/>
+        <classes>
+            <class name="com.anhtester.Bai20_Multiple_Platform.testcases.MenuTest"/>
+        </classes>
+    </test>
+
+    <test name="Platform Android Test 2 - Taurus App">
+        <parameter name="platformName" value="Android"/>
+        <parameter name="platformVersion" value="14"/>
+        <parameter name="deviceName" value="Pixel_9_Pro_XL_API_34"/>
+        <parameter name="udid" value="emulator-5556"/>
+        <parameter name="automationName" value="UiAutomator2"/>
+        <parameter name="appPackage" value="com.anhtester.mobile_app.taurus"/>
+        <parameter name="appActivity" value="com.anhtester.mobile_app.taurus.MainActivity"/>
+        <parameter name="noReset" value="false"/>
+        <parameter name="fullReset" value="false"/>
+        <parameter name="autoGrantPermissions" value="true"/>
+        <parameter name="host" value="127.0.0.1"/>
+        <parameter name="port" value="9000"/>
+        <parameter name="systemPort" value="8202"/>
+        <classes>
+            <class name="com.anhtester.Bai20_Multiple_Platform.testcases.MenuTest"/>
+        </classes>
+    </test>
+
+    <!--    <test name="Platform iOS Test - Taurus App">-->
+    <!--        <parameter name="platformName" value="iOS"/>-->
+    <!--        <parameter name="platformVersion" value="18"/>-->
+    <!--        <parameter name="deviceName" value="iPhone 14"/>-->
+    <!--        <parameter name="automationName" value="XCUITest"/>-->
+    <!--        <parameter name="bundleId" value=""/>-->
+    <!--        <parameter name="noReset" value="false"/>-->
+    <!--        <parameter name="fullReset" value="false"/>-->
+    <!--        <parameter name="autoGrantPermissions" value="true"/>-->
+    <!--        <parameter name="host" value="127.0.0.1"/>-->
+    <!--        <parameter name="port" value="6000"/>-->
+    <!--        <parameter name="wdaLocalPort" value="8101"/>-->
+    <!--        <classes>-->
+    <!--            <class name="com.anhtester.Bai20_Multiple_Platform.testcases.MenuTest"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+    
+</suite>
