@@ -17,8 +17,11 @@
         <parameter name="port" value="8000"/>
         <parameter name="systemPort" value="8201"/>
         <classes>
-            <class name="com.anhtester.Bai20_Multiple_Platform.testcases.LoginTest"/>
-            <!--<class name="com.anhtester.Bai20_Multiple_Platform.testcases.MenuTest"/>-->
+            <class name="com.anhtester.Bai20_Multiple_Platform.testcases.LoginTest">
+                <methods>
+                    <include name="testLoginSuccess"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
@@ -37,8 +40,11 @@
         <parameter name="port" value="9000"/>
         <parameter name="systemPort" value="8202"/>
         <classes>
-            <!--<class name="com.anhtester.Bai20_Multiple_Platform.testcases.LoginTest"/>-->
-            <class name="com.anhtester.Bai20_Multiple_Platform.testcases.MenuTest"/>
+            <class name="com.anhtester.Bai20_Multiple_Platform.testcases.LoginTest">
+                <methods>
+                    <include name="testLoginFailWithUsernameInvalid"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
