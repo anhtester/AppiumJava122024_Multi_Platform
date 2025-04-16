@@ -36,8 +36,8 @@ public class BaseTest {
      * @param port Port của Appium server
      */
     public void runAppiumServer(String host, String port) {
-        System.out.println("host in AppiumServer: " + host);
-        System.out.println("port in AppiumServer: " + port);
+        System.out.println("HOST: " + host);
+        System.out.println("PORT: " + port);
 
         //Set host and port
         if (host == null || host.isEmpty()) {
@@ -71,7 +71,7 @@ public class BaseTest {
         if (service.isRunning()) {
             System.out.println("##### Appium server started on " + HOST + ":" + PORT);
         } else {
-            System.out.println("Failed to start Appium server.");
+            System.out.println("Failed to start Appium server on LOCAL.");
         }
 
     }
@@ -98,8 +98,13 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     @Parameters({"platformName", "platformVersion", "deviceName", "udid", "automationName", "appPackage", "appActivity", "noReset", "fullReset", "autoGrantPermissions", "host", "port", "bundleId", "wdaLocalPort", "systemPort"})
     public void setUpDriver(String platformName, String platformVersion, String deviceName, @Optional String udid, @Optional String automationName, @Optional String appPackage, @Optional String appActivity, boolean noReset, boolean fullReset, boolean autoGrantPermissions, String host, String port, @Optional String bundleId, @Optional String wdaLocalPort, @Optional String systemPort) {
-        //Khởi động Appium server
-        runAppiumServer(host, port);
+        //Khởi động Appium server dưới máy local
+        if (ConfigData.APPIUM_DRIVER_LOCAL_SERVICE.trim().equalsIgnoreCase("true")) {
+            System.out.println("Khởi động Appium server LOCAL: " + host + ":" + port);
+            runAppiumServer(host, port);
+        } else {
+            System.out.println("Chạy Appium server từ xa hoặc đã bật sẵn.");
+        }
 
         //Print tất cả các thông số
         System.out.println("platformName: " + platformName);
@@ -117,7 +122,7 @@ public class BaseTest {
         System.out.println("bundleId: " + bundleId);
         System.out.println("wdaLocalPort: " + wdaLocalPort);
         System.out.println("systemPort: " + systemPort);
-        
+
         AppiumDriver driver = null;
 
         try {
@@ -189,11 +194,15 @@ public class BaseTest {
             DriverManager.quitDriver();
             System.out.println("##### Driver quit and removed.");
         }
-        stopAppiumServer();
+
+        //Dừng Appium server LOCAL nếu đã khởi động
+        if (ConfigData.APPIUM_DRIVER_LOCAL_SERVICE.trim().equalsIgnoreCase("true")) {
+            stopAppiumServer();
+        }
     }
 
     /**
-     * Dừng Appium server.
+     * Stop Appium server.
      */
     public void stopAppiumServer() {
         if (service != null && service.isRunning()) {

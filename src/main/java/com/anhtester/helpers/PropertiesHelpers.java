@@ -105,13 +105,13 @@ public class PropertiesHelpers {
             Properties properties = new Properties();
             FileInputStream file = new FileInputStream(SystemHelpers.getCurrentDir() + filePropertiesRelativePath);
             properties.load(file);
-            System.out.println(file);
             file.close();
 
             properties.setProperty(key, keyValue);
             FileOutputStream out = new FileOutputStream(SystemHelpers.getCurrentDir() + filePropertiesRelativePath);
             properties.store(out, null);
             out.close();
+            System.out.println("Set value '" + keyValue + "' to file " + filePropertiesRelativePath);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

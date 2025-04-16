@@ -19,6 +19,7 @@ import static com.anhtester.drivers.DriverManager.getDriver;
 public class MobileUI {
 
     private static final int DEFAULT_TIMEOUT = Integer.parseInt(ConfigData.TIMEOUT_EXPLICIT_DEFAULT);
+    private static final double STEP_ACTION_TIMEOUT = Double.parseDouble(ConfigData.STEP_ACTION_TIMEOUT);
 
     public static void sleep(double second) {
         System.out.println("[MobileUI] Sleeping for " + second + " seconds.");
@@ -30,6 +31,7 @@ public class MobileUI {
     }
 
     public static void swipe(int startX, int startY, int endX, int endY, int durationMillis) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing swipe from (" + startX + "," + startY + ") to (" + endX + "," + endY + ") with duration " + durationMillis + "ms.");
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence swipe = new Sequence(finger, 1);
@@ -41,6 +43,7 @@ public class MobileUI {
     }
 
     public static void swipeLeft() {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing swipeLeft.");
         Dimension size = getDriver().manage().window().getSize();
         int startX = (int) (size.width * 0.8);
@@ -52,6 +55,7 @@ public class MobileUI {
     }
 
     public static void swipeRight() {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing swipeRight.");
         Dimension size = getDriver().manage().window().getSize();
         int startX = (int) (size.width * 0.2);
@@ -69,6 +73,7 @@ public class MobileUI {
     }
 
     public static void tap(WebElement element) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing tap on element: " + element);
         Point location = element.getLocation();
         Dimension size = element.getSize();
@@ -84,6 +89,7 @@ public class MobileUI {
     }
 
     public static void tap(int x, int y) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing tap at coordinates (" + x + "," + y + ") with 200ms pause.");
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence tap = new Sequence(finger, 1);
@@ -95,6 +101,7 @@ public class MobileUI {
     }
 
     public static void tap(int x, int y, int milliSecondDuration) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing tap at coordinates (" + x + "," + y + ") with pause " + milliSecondDuration + "ms.");
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence tap = new Sequence(finger, 1);
@@ -106,6 +113,7 @@ public class MobileUI {
     }
 
     public static void zoom(WebElement element, double scale) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing zoom on element: " + element + " with approximate scale factor: " + scale + " (Note: Implementation may need review for accurate scaling)");
         int centerX = element.getLocation().getX() + element.getSize().getWidth() / 2;
         int centerY = element.getLocation().getY() + element.getSize().getHeight() / 2;
@@ -153,6 +161,7 @@ public class MobileUI {
     }
 
     public static void scroll(int startX, int startY, int endX, int endY, int durationMillis) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Executing scroll from (" + startX + "," + startY + ") to (" + endX + "," + endY + ") with duration " + durationMillis + "ms.");
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence swipe = new Sequence(finger, 1);
@@ -164,6 +173,7 @@ public class MobileUI {
     }
 
     public static void scrollGestureCommand() {
+        sleep(STEP_ACTION_TIMEOUT);
         // Scroll gesture cho Android
         Map<String, Object> scrollParams = new HashMap<>();
         scrollParams.put("left", 670);
@@ -179,28 +189,33 @@ public class MobileUI {
     }
 
     public static void clickElement(By locator, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clicking element located by: " + locator + " within " + second + "s.");
         waitForElementToBeClickable(locator, second).click();
     }
 
     public static void clickElement(By locator) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clicking element located by: " + locator + " within default timeout (" + DEFAULT_TIMEOUT + "s).");
         waitForElementToBeClickable(locator).click();
     }
 
     public static void clickElement(WebElement element, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clicking element: " + element + " within " + second + "s.");
         waitForElementToBeClickable(element, second).click();
     }
 
     public static void clickElement(WebElement element) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clicking element: " + element + " within default timeout (" + DEFAULT_TIMEOUT + "s).");
         waitForElementToBeClickable(element).click();
     }
 
     public static void setText(By locator, String text) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Setting text '" + text + "' on element located by: " + locator + " with default timeout.");
-        WebElement element = waitForElementVisibe(locator);
+        WebElement element = waitForElementVisible(locator);
         element.click(); // Often needed before clear/sendKeys
         element.clear();
         element.sendKeys(text);
@@ -208,8 +223,9 @@ public class MobileUI {
     }
 
     public static void setText(By locator, String text, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Setting text '" + text + "' on element located by: " + locator + " with timeout " + second + "s.");
-        WebElement element = waitForElementVisibe(locator, second);
+        WebElement element = waitForElementVisible(locator, second);
         element.click();
         element.clear();
         element.sendKeys(text);
@@ -217,8 +233,9 @@ public class MobileUI {
     }
 
     public static void setText(WebElement element, String text) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Setting text '" + text + "' on element: " + element + " with default timeout.");
-        WebElement elm = waitForElementVisibe(element);
+        WebElement elm = waitForElementVisible(element);
         elm.click();
         elm.clear();
         elm.sendKeys(text);
@@ -227,8 +244,9 @@ public class MobileUI {
     }
 
     public static void setText(WebElement element, String text, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Setting text '" + text + "' on element: " + element + " with timeout " + second + "s.");
-        WebElement elm = waitForElementVisibe(element, second);
+        WebElement elm = waitForElementVisible(element, second);
         elm.click();
         elm.clear();
         elm.sendKeys(text);
@@ -236,96 +254,108 @@ public class MobileUI {
     }
 
     public static void clearText(By locator) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clearing text on element located by: " + locator + " with default timeout.");
-        WebElement element = waitForElementVisibe(locator);
+        WebElement element = waitForElementVisible(locator);
         element.click();
         element.clear();
         System.out.println("[MobileUI] Clear text completed for locator: " + locator);
     }
 
     public static void clearText(By locator, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clearing text on element located by: " + locator + " with timeout " + second + "s.");
-        WebElement element = waitForElementVisibe(locator, second);
+        WebElement element = waitForElementVisible(locator, second);
         element.click();
         element.clear();
         System.out.println("[MobileUI] Clear text completed for locator: " + locator);
     }
 
     public static void clearText(WebElement element) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clearing text on element: " + element + " with default timeout.");
-        WebElement elm = waitForElementVisibe(element);
+        WebElement elm = waitForElementVisible(element);
         elm.click();
         elm.clear();
         System.out.println("[MobileUI] Clear text completed for element: " + element);
     }
 
     public static void clearText(WebElement element, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Clearing text on element: " + element + " with timeout " + second + "s.");
-        WebElement elm = waitForElementVisibe(element, second);
+        WebElement elm = waitForElementVisible(element, second);
         elm.click();
         elm.clear();
         System.out.println("[MobileUI] Clear text completed for element: " + element);
     }
 
     public static String getElementText(By locator) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting text from element located by: " + locator + " with default timeout.");
-        WebElement element = waitForElementVisibe(locator);
+        WebElement element = waitForElementVisible(locator);
         String text = element.getText();
         System.out.println("[MobileUI] Retrieved text: '" + text + "'");
         return text;
     }
 
     public static String getElementText(By locator, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting text from element located by: " + locator + " with timeout " + second + "s.");
-        WebElement element = waitForElementVisibe(locator, second);
+        WebElement element = waitForElementVisible(locator, second);
         String text = element.getText();
         System.out.println("[MobileUI] Retrieved text: '" + text + "'");
         return text;
     }
 
     public static String getElementText(WebElement element) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting text from element: " + element + " with default timeout.");
-        WebElement elm = waitForElementVisibe(element);
+        WebElement elm = waitForElementVisible(element);
         String text = elm.getText();
         System.out.println("[MobileUI] Retrieved text: '" + text + "'");
         return text;
     }
 
     public static String getElementText(WebElement element, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting text from element: " + element + " with timeout " + second + "s.");
-        WebElement elm = waitForElementVisibe(element, second);
+        WebElement elm = waitForElementVisible(element, second);
         String text = elm.getText();
         System.out.println("[MobileUI] Retrieved text: '" + text + "'");
         return text;
     }
 
     public static String getElementAttribute(By locator, String attribute) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting attribute '" + attribute + "' from element located by: " + locator + " with default timeout.");
-        WebElement element = waitForElementVisibe(locator);
+        WebElement element = waitForElementVisible(locator);
         String value = element.getAttribute(attribute);
         System.out.println("[MobileUI] Retrieved attribute value: '" + value + "'");
         return value;
     }
 
     public static String getElementAttribute(By locator, String attribute, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting attribute '" + attribute + "' from element located by: " + locator + " with timeout " + second + "s.");
-        WebElement element = waitForElementVisibe(locator, second);
+        WebElement element = waitForElementVisible(locator, second);
         String value = element.getAttribute(attribute);
         System.out.println("[MobileUI] Retrieved attribute value: '" + value + "'");
         return value;
     }
 
     public static String getElementAttribute(WebElement element, String attribute) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting attribute '" + attribute + "' from element: " + element + " with default timeout.");
-        WebElement elm = waitForElementVisibe(element);
+        WebElement elm = waitForElementVisible(element);
         String value = elm.getAttribute(attribute);
         System.out.println("[MobileUI] Retrieved attribute value: '" + value + "'");
         return value;
     }
 
     public static String getElementAttribute(WebElement element, String attribute, int second) {
+        sleep(STEP_ACTION_TIMEOUT);
         System.out.println("[MobileUI] Getting attribute '" + attribute + "' from element: " + element + " with timeout " + second + "s.");
-        WebElement elm = waitForElementVisibe(element, second);
+        WebElement elm = waitForElementVisible(element, second);
         String value = elm.getAttribute(attribute);
         System.out.println("[MobileUI] Retrieved attribute value: '" + value + "'");
         return value;
@@ -381,7 +411,7 @@ public class MobileUI {
         System.out.println("[MobileUI] Checking if element is enabled: " + locator);
         boolean result;
         try {
-            WebElement element = waitForElementVisibe(locator); // Ensure it's visible before checking enabled
+            WebElement element = waitForElementVisible(locator); // Ensure it's visible before checking enabled
             result = element != null && element.isEnabled();
             System.out.println("[MobileUI] Element enabled check result: " + result + " for locator: " + locator);
             return result;
@@ -408,7 +438,7 @@ public class MobileUI {
         System.out.println("[MobileUI] Checking if element is selected: " + locator);
         boolean result;
         try {
-            WebElement element = waitForElementVisibe(locator); // Ensure it's visible before checking selected
+            WebElement element = waitForElementVisible(locator); // Ensure it's visible before checking selected
             result = element != null && element.isSelected();
             System.out.println("[MobileUI] Element selected check result: " + result + " for locator: " + locator);
             return result;
@@ -504,49 +534,49 @@ public class MobileUI {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public static WebElement waitForElementVisibe(By locator, int timeout) {
+    public static WebElement waitForElementVisible(By locator, int timeout) {
         System.out.println("[MobileUI] Waiting up to " + timeout + "s for element to be visible: " + locator);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public static WebElement waitForElementVisibe(By locator) {
+    public static WebElement waitForElementVisible(By locator) {
         System.out.println("[MobileUI] Waiting up to " + DEFAULT_TIMEOUT + "s (default) for element to be visible: " + locator);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public static WebElement waitForElementVisibe(WebElement element, int timeout) {
+    public static WebElement waitForElementVisible(WebElement element, int timeout) {
         System.out.println("[MobileUI] Waiting up to " + timeout + "s for element to be visible: " + element);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static WebElement waitForElementVisibe(WebElement element) {
+    public static WebElement waitForElementVisible(WebElement element) {
         System.out.println("[MobileUI] Waiting up to " + DEFAULT_TIMEOUT + "s (default) for element to be visible: " + element);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static boolean waitForElementInvisibe(By locator, int timeout) {
+    public static boolean waitForElementInvisible(By locator, int timeout) {
         System.out.println("[MobileUI] Waiting up to " + timeout + "s for element to be invisible: " + locator);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
-    public static boolean waitForElementInvisibe(By locator) {
+    public static boolean waitForElementInvisible(By locator) {
         System.out.println("[MobileUI] Waiting up to " + DEFAULT_TIMEOUT + "s (default) for element to be invisible: " + locator);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
-    public static boolean waitForElementInvisibe(WebElement element, int timeout) {
+    public static boolean waitForElementInvisible(WebElement element, int timeout) {
         System.out.println("[MobileUI] Waiting up to " + timeout + "s for element to be invisible: " + element);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    public static boolean waitForElementInvisibe(WebElement element) {
+    public static boolean waitForElementInvisible(WebElement element) {
         System.out.println("[MobileUI] Waiting up to " + DEFAULT_TIMEOUT + "s (default) for element to be invisible: " + element);
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
         return wait.until(ExpectedConditions.invisibilityOf(element));
