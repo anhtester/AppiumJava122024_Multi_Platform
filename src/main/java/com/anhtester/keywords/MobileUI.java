@@ -1,5 +1,6 @@
 package com.anhtester.keywords;
 
+import com.anhtester.constants.ConfigData;
 import com.anhtester.drivers.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -17,7 +18,7 @@ import static com.anhtester.drivers.DriverManager.getDriver;
 
 public class MobileUI {
 
-    private static final int DEFAULT_TIMEOUT = 10;
+    private static final int DEFAULT_TIMEOUT = Integer.parseInt(ConfigData.TIMEOUT_EXPLICIT_DEFAULT);
 
     public static void sleep(double second) {
         System.out.println("[MobileUI] Sleeping for " + second + " seconds.");
@@ -144,7 +145,7 @@ public class MobileUI {
             zoom.addAction(finger1.createPointerMove(Duration.ofMillis(moveDuration), PointerInput.Origin.viewport(), currentX1, centerY));
             zoom2.addAction(finger2.createPointerMove(Duration.ofMillis(moveDuration), PointerInput.Origin.viewport(), currentX2, centerY));
         }
-        
+
         zoom.addAction(finger1.createPointerUp(0));
         zoom2.addAction(finger2.createPointerUp(0));
 

@@ -1,0 +1,34 @@
+{
+  "platforms": {
+    "android": {
+      "devices": {
+        "pixel8": {
+          "platformName": "Android",
+          "platformVersion": "14",
+          "automationName": "UiAutomator2",
+          "deviceName": "Pixel_8_Pro_API_34",
+          "appPackage": "com.example.anhtester_mobile_app",
+          "appActivity": "com.example.anhtester_mobile_app.MainActivity",
+          "appAndroidPath": "src/test/resources/apps/flutter-app-release.apk",
+          "noReset": false,
+          "fullReset": false,
+          "autoGrantPermissions": true
+        },
+        "pixel9": {
+          "platformName": "Android",
+          "platformVersion": "15",
+          "automationName": "UiAutomator2",
+          "deviceName": "Pixel_9_Pro_XL_API_35",
+          "appPackage": "com.example.anhtester_mobile_app",
+          "appActivity": "com.example.anhtester_mobile_app.MainActivity",
+          "appAndroidPath": "src/test/resources/apps/flutter-app-release.apk",
+          "noReset": false,
+          "fullReset": false,
+          "autoGrantPermissions": true
+        }
+      }
+    },
+    "ios": {
+    }
+  }
+}

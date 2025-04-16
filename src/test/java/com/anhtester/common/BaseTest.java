@@ -1,5 +1,6 @@
 package com.anhtester.common;
 
+import com.anhtester.constants.ConfigData;
 import com.anhtester.drivers.DriverManager;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.MobileUI;
@@ -17,7 +18,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Objects;
@@ -35,15 +35,24 @@ public class BaseTest {
      * @param host Địa chỉ host của Appium server
      * @param port Port của Appium server
      */
-    //@Parameters({"host", "port"})
-    //@BeforeSuite
     public void runAppiumServer(String host, String port) {
         System.out.println("host in AppiumServer: " + host);
         System.out.println("port in AppiumServer: " + port);
 
         //Set host and port
-        HOST = host;
-        PORT = port;
+        if (host == null || host.isEmpty()) {
+            host = HOST;
+        } else {
+            HOST = host;
+        }
+
+        if (port == null || port.isEmpty()) {
+            port = PORT;
+        } else {
+            PORT = port;
+        }
+
+        TIMEOUT_SERVICE = Integer.parseInt(ConfigData.TIMEOUT_SERVICE);
 
         //Kill process on port
         SystemHelpers.killProcessOnPort(PORT);
@@ -70,26 +79,25 @@ public class BaseTest {
     /**
      * Thiết lập (khởi tạo và lưu trữ) AppiumDriver cho luồng hiện tại.
      *
-     * @param platformName          Tên platform (Android/iOS)
-     * @param platformVersion       Phiên bản platform
-     * @param deviceName            Tên thiết bị
-     * @param udid                  UDID của thiết bị (quan trọng cho parallel)
-     * @param automationName        Tên automation engine (UiAutomator2/XCUITest)
-     * @param appPackage            Package của app Android
-     * @param appActivity           Activity của app Android
-     * @param noReset               Không reset app trước khi chạy
-     * @param fullReset             Reset app trước khi chạy
-     * @param autoGrantPermissions  Tự động cấp quyền cho app
-     * @param host                  Địa chỉ host của Appium server
-     * @param port                  Port của Appium server
-     * @param bundleId              Bundle ID của app iOS
-     * @param wdaLocalPort          Port WDA (iOS parallel)
-     * @param systemPort            Port System (Android parallel)
-     * @param MalformedURLException Bẫy lỗi khi tạo URL
+     * @param platformName         Tên platform (Android/iOS)
+     * @param platformVersion      Phiên bản platform
+     * @param deviceName           Tên thiết bị
+     * @param udid                 UDID của thiết bị (quan trọng cho parallel)
+     * @param automationName       Tên automation engine (UiAutomator2/XCUITest)
+     * @param appPackage           Package của app Android
+     * @param appActivity          Activity của app Android
+     * @param noReset              Không reset app trước khi chạy
+     * @param fullReset            Reset app trước khi chạy
+     * @param autoGrantPermissions Tự động cấp quyền cho app
+     * @param host                 Địa chỉ host của Appium server
+     * @param port                 Port của Appium server
+     * @param bundleId             Bundle ID của app iOS
+     * @param wdaLocalPort         Port WDA (iOS parallel)
+     * @param systemPort           Port System (Android parallel)
      */
     @BeforeMethod(alwaysRun = true)
     @Parameters({"platformName", "platformVersion", "deviceName", "udid", "automationName", "appPackage", "appActivity", "noReset", "fullReset", "autoGrantPermissions", "host", "port", "bundleId", "wdaLocalPort", "systemPort"})
-    public void setUpDriver(String platformName, String platformVersion, String deviceName, @Optional String udid, @Optional String automationName, @Optional String appPackage, @Optional String appActivity, boolean noReset, boolean fullReset, boolean autoGrantPermissions, String host, String port, @Optional String bundleId, @Optional String wdaLocalPort, @Optional String systemPort) throws MalformedURLException {
+    public void setUpDriver(String platformName, String platformVersion, String deviceName, @Optional String udid, @Optional String automationName, @Optional String appPackage, @Optional String appActivity, boolean noReset, boolean fullReset, boolean autoGrantPermissions, String host, String port, @Optional String bundleId, @Optional String wdaLocalPort, @Optional String systemPort) {
         //Khởi động Appium server
         runAppiumServer(host, port);
 
@@ -109,8 +117,7 @@ public class BaseTest {
         System.out.println("bundleId: " + bundleId);
         System.out.println("wdaLocalPort: " + wdaLocalPort);
         System.out.println("systemPort: " + systemPort);
-
-
+        
         AppiumDriver driver = null;
 
         try {
@@ -185,7 +192,9 @@ public class BaseTest {
         stopAppiumServer();
     }
 
-    //@AfterSuite
+    /**
+     * Dừng Appium server.
+     */
     public void stopAppiumServer() {
         if (service != null && service.isRunning()) {
             service.stop();

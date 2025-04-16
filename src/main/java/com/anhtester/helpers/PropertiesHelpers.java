@@ -1,4 +1,4 @@
-import com.anhtester.helpers.SystemHelpers;
+package com.anhtester.helpers;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -92,6 +92,24 @@ public class PropertiesHelpers {
             out = new FileOutputStream(linkFile);
             System.out.println(linkFile);
             properties.setProperty(key, keyValue);
+            properties.store(out, null);
+            out.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void setValue(String filePropertiesRelativePath, String key, String keyValue) {
+        try {
+
+            Properties properties = new Properties();
+            FileInputStream file = new FileInputStream(SystemHelpers.getCurrentDir() + filePropertiesRelativePath);
+            properties.load(file);
+            System.out.println(file);
+            file.close();
+
+            properties.setProperty(key, keyValue);
+            FileOutputStream out = new FileOutputStream(SystemHelpers.getCurrentDir() + filePropertiesRelativePath);
             properties.store(out, null);
             out.close();
         } catch (Exception e) {
