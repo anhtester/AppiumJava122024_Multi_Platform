@@ -1,5 +1,6 @@
 package com.anhtester.helpers;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -114,6 +115,32 @@ public class PropertiesHelpers {
             System.out.println("Set value '" + keyValue + "' to file " + filePropertiesRelativePath);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void removeKey(String filePropertiesRelativePath, String key) {
+        try {
+            // Đọc file properties
+            Properties properties = new Properties();
+            File file = new File(SystemHelpers.getCurrentDir() + filePropertiesRelativePath);
+            FileInputStream inputStream = new FileInputStream(file);
+            properties.load(inputStream);
+            inputStream.close();
+
+            // Xoá key nếu tồn tại
+            if (properties.containsKey(key)) {
+                properties.remove(key);
+                System.out.println("🔑 Đã xoá key: " + key);
+            } else {
+                System.out.println("⚠️ Key không tồn tại: " + key);
+            }
+
+            // Ghi lại file
+            FileOutputStream outputStream = new FileOutputStream(file);
+            properties.store(outputStream, null);
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -18,7 +18,17 @@ public class DemoPropertiesFile {
     public void testSetValueToPropertiesFile() {
         PropertiesHelpers.setValue(
                 "src/test/resources/test_data/data.properties",
-                "platform",
-                "Android");
+                "PLATFORM",
+                "iOS");
+
+        PropertiesHelpers.setValue(
+                "src/test/resources/test_data/data.properties",
+                "DEVICE",
+                "Pixel 8");
+
+        PropertiesHelpers.removeKey("src/test/resources/test_data/data.properties",
+                "platform");
+        PropertiesHelpers.removeKey("src/test/resources/test_data/data.properties",
+                "device");
     }
 }

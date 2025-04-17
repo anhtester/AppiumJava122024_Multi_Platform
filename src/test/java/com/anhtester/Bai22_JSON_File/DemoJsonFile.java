@@ -13,6 +13,8 @@ public class DemoJsonFile {
         JsonHelpers.getValueJsonObject("account", "username");
         JsonHelpers.getValueJsonObject("account", "password");
 
+        JsonHelpers.getValueJsonObject("table", "table_name");
+
         JsonHelpers.getValueJsonObject("product", "product_name");
         JsonHelpers.getValueJsonObject("product", "product_price");
         JsonHelpers.getValueJsonObject("product", "hidden_product");
@@ -57,7 +59,7 @@ public class DemoJsonFile {
                 "profile", "job_title", "Tester");
 
         //Update value in JSON array
-        JsonHelpers.updateValueJsonArray_FilePath("src/test/resources/test_data/sample_products.json", "20000", 0, "price", "amount");
-        
+        JsonHelpers.updateValueJsonArray_FilePath("src/test/resources/test_data/sample_products.json", "24Gb", 1, "specs", "ram");
+
     }
 }

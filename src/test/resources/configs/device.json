@@ -29,6 +29,32 @@
          }
       },
       "ios": {
+         "devices": {
+            "iphone14": {
+               "platformName": "iOS",
+               "platformVersion": "17",
+               "automationName": "XCUITest",
+               "deviceName": "iPhone 14 Pro Max",
+               "appPackage": "com.anhtester.mobile_app.taurus",
+               "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
+               "appPath": "path to app",
+               "noReset": false,
+               "fullReset": false,
+               "autoGrantPermissions": true
+            },
+            "iphone15": {
+               "platformName": "iOS",
+               "platformVersion": "18",
+               "automationName": "XCUITest",
+               "deviceName": "iPhone 15 Pro Max",
+               "appPackage": "com.anhtester.mobile_app.taurus",
+               "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
+               "appPath": "path to app",
+               "noReset": false,
+               "fullReset": false,
+               "autoGrantPermissions": true
+            }
+         }
       }
    }
 }
