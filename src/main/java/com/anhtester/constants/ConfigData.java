@@ -42,12 +42,11 @@ public class ConfigData {
             throw new RuntimeException(e);
         }
 
-        // Navigate to the "automationName" field
         String result = rootNode
                 .path("platforms")
-                .path(platform)
+                .path(platform.trim().toLowerCase())
                 .path("devices")
-                .path(device)
+                .path(device.trim().toLowerCase())
                 .path(propertyName)
                 .asText();
 

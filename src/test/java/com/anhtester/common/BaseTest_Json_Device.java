@@ -22,7 +22,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Objects;
 
-public class BaseTest {
+public class BaseTest_Json_Device {
 
     private AppiumDriverLocalService service;
     private String HOST = "127.0.0.1";
@@ -79,25 +79,18 @@ public class BaseTest {
     /**
      * Thiết lập (khởi tạo và lưu trữ) AppiumDriver cho luồng hiện tại.
      *
-     * @param platformName         Tên platform (Android/iOS)
-     * @param platformVersion      Phiên bản platform
-     * @param deviceName           Tên thiết bị
-     * @param udid                 UDID của thiết bị (quan trọng cho parallel)
-     * @param automationName       Tên automation engine (UiAutomator2/XCUITest)
-     * @param appPackage           Package của app Android
-     * @param appActivity          Activity của app Android
-     * @param noReset              Không reset app trước khi chạy
-     * @param fullReset            Reset app trước khi chạy
-     * @param autoGrantPermissions Tự động cấp quyền cho app
-     * @param host                 Địa chỉ host của Appium server
-     * @param port                 Port của Appium server
-     * @param bundleId             Bundle ID của app iOS
-     * @param wdaLocalPort         Port WDA (iOS parallel)
-     * @param systemPort           Port System (Android parallel)
+     * @param platformName Tên platform (Android/iOS)
+     * @param deviceName   Tên thiết bị trong device.json
+     * @param udid         UDID của thiết bị Android (quan trọng cho parallel)
+     * @param host         Địa chỉ host của Appium server
+     * @param port         Port của Appium server
+     * @param bundleId     Bundle ID của app iOS
+     * @param wdaLocalPort Port WDA (iOS parallel)
+     * @param systemPort   Port System (Android parallel)
      */
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"platformName", "platformVersion", "deviceName", "udid", "automationName", "appPackage", "appActivity", "noReset", "fullReset", "autoGrantPermissions", "host", "port", "bundleId", "wdaLocalPort", "systemPort"})
-    public void setUpDriver(String platformName, String platformVersion, String deviceName, @Optional String udid, @Optional String automationName, @Optional String appPackage, @Optional String appActivity, boolean noReset, boolean fullReset, boolean autoGrantPermissions, String host, String port, @Optional String bundleId, @Optional String wdaLocalPort, @Optional String systemPort) {
+    @Parameters({"platformName", "deviceName", "udid", "host", "port", "bundleId", "wdaLocalPort", "systemPort"})
+    public void setUpDriver(String platformName, String deviceName, @Optional String udid, String host, String port, @Optional String bundleId, @Optional String wdaLocalPort, @Optional String systemPort) {
         //Khởi động Appium server dưới máy local
         if (ConfigData.APPIUM_DRIVER_LOCAL_SERVICE.trim().equalsIgnoreCase("true")) {
             System.out.println("Khởi động Appium server LOCAL: " + host + ":" + port);
@@ -108,15 +101,15 @@ public class BaseTest {
 
         //Print tất cả các thông số
         System.out.println("platformName: " + platformName);
-        System.out.println("platformVersion: " + platformVersion);
-        System.out.println("deviceName: " + deviceName);
-        System.out.println("udid: " + udid);
-        System.out.println("automationName: " + automationName);
-        System.out.println("appPackage: " + appPackage);
-        System.out.println("appActivity: " + appActivity);
-        System.out.println("noReset: " + noReset);
-        System.out.println("fullReset: " + fullReset);
-        System.out.println("autoGrantPermissions: " + autoGrantPermissions);
+        System.out.println("platformVersion: " + ConfigData.getValueJsonConfig(platformName, deviceName, "platformVersion"));
+        System.out.println("deviceName: " + ConfigData.getValueJsonConfig(platformName, deviceName, "deviceName"));
+        System.out.println("udid: " + ConfigData.getValueJsonConfig(platformName, deviceName, "udid"));
+        System.out.println("automationName: " + ConfigData.getValueJsonConfig(platformName, deviceName, "automationName"));
+        System.out.println("appPackage: " + ConfigData.getValueJsonConfig(platformName, deviceName, "appPackage"));
+        System.out.println("appActivity: " + ConfigData.getValueJsonConfig(platformName, deviceName, "appActivity"));
+        System.out.println("noReset: " + ConfigData.getValueJsonConfig(platformName, deviceName, "noReset"));
+        System.out.println("fullReset: " + ConfigData.getValueJsonConfig(platformName, deviceName, "fullReset"));
+        System.out.println("autoGrantPermissions: " + ConfigData.getValueJsonConfig(platformName, deviceName, "autoGrantPermissions"));
         System.out.println("host: " + host);
         System.out.println("port: " + port);
         System.out.println("bundleId: " + bundleId);
@@ -129,21 +122,26 @@ public class BaseTest {
             if (platformName.equalsIgnoreCase("Android")) {
                 UiAutomator2Options options = new UiAutomator2Options();
                 options.setPlatformName(platformName);
-                options.setPlatformVersion(platformVersion);
-                options.setDeviceName(deviceName);
+                options.setPlatformVersion(ConfigData.getValueJsonConfig(platformName, deviceName, "platformVersion"));
+                options.setDeviceName(ConfigData.getValueJsonConfig(platformName, deviceName, "deviceName"));
+
                 if (udid != null && !udid.isEmpty()) {
                     options.setUdid(udid);
                 }
+
+                String appPackage = ConfigData.getValueJsonConfig(platformName, deviceName, "appPackage");
                 if (appPackage != null && !appPackage.isEmpty()) {
                     options.setAppPackage(appPackage);
                 }
+
+                String appActivity = ConfigData.getValueJsonConfig(platformName, deviceName, "appActivity");
                 if (appActivity != null && !appActivity.isEmpty()) {
                     options.setAppActivity(appActivity);
                 }
                 // options.setApp("/path/to/your/app.apk");
-                options.setAutomationName(Objects.requireNonNullElse(automationName, "UiAutomator2"));
-                options.setNoReset(noReset);
-                options.setFullReset(fullReset);
+                options.setAutomationName(Objects.requireNonNullElse(ConfigData.getValueJsonConfig(platformName, deviceName, "automationName"), "UiAutomator2"));
+                options.setNoReset(Boolean.parseBoolean(ConfigData.getValueJsonConfig(platformName, deviceName, "noReset")));
+                options.setFullReset(Boolean.parseBoolean(ConfigData.getValueJsonConfig(platformName, deviceName, "fullReset")));
 
                 if (systemPort != null && !systemPort.isEmpty()) {
                     options.setSystemPort(Integer.parseInt(systemPort));
@@ -156,16 +154,16 @@ public class BaseTest {
             } else if (platformName.equalsIgnoreCase("iOS")) {
                 XCUITestOptions options = new XCUITestOptions();
                 options.setPlatformName(platformName);
-                options.setPlatformVersion(platformVersion);
-                options.setDeviceName(deviceName);
+                options.setPlatformVersion(ConfigData.getValueJsonConfig(platformName, deviceName, "platformVersion"));
+                options.setDeviceName(ConfigData.getValueJsonConfig(platformName, deviceName, "deviceName"));
                 // options.setApp("/path/to/your/app.app or .ipa");
-
                 if (bundleId != null && !bundleId.isEmpty()) {
                     options.setBundleId(bundleId);
                 }
-                options.setAutomationName(Objects.requireNonNullElse(automationName, "XCUITest"));
-                options.setNoReset(noReset);
-                options.setFullReset(fullReset);
+
+                options.setAutomationName(Objects.requireNonNullElse(ConfigData.getValueJsonConfig(platformName, deviceName, "automationName"), "XCUITest"));
+                options.setNoReset(Boolean.parseBoolean(ConfigData.getValueJsonConfig(platformName, deviceName, "noReset")));
+                options.setFullReset(Boolean.parseBoolean(ConfigData.getValueJsonConfig(platformName, deviceName, "fullReset")));
 
                 if (wdaLocalPort != null && !wdaLocalPort.isEmpty()) {
                     options.setWdaLocalPort(Integer.parseInt(wdaLocalPort));

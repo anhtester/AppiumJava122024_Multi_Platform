@@ -1,0 +1,58 @@
+[
+   {
+      "id": 1,
+      "name": "Laptop Dell XPS 13",
+      "specs": {
+         "cpu": "Intel i7",
+         "ram": "16GB",
+         "storage": "512GB SSD"
+      },
+      "price": {
+         "amount": "20000",
+         "currency": "VND"
+      },
+      "available": true
+   },
+   {
+      "id": 2,
+      "name": "MacBook Pro M2",
+      "specs": {
+         "cpu": "Apple M2",
+         "ram": "16GB",
+         "storage": "1TB SSD"
+      },
+      "price": {
+         "amount": 38990000,
+         "currency": "VND"
+      },
+      "available": false
+   },
+   {
+      "id": 3,
+      "name": "Asus ROG Zephyrus G14",
+      "specs": {
+         "cpu": "AMD Ryzen 9",
+         "ram": "32GB",
+         "storage": "1TB SSD"
+      },
+      "price": {
+         "amount": 42990000,
+         "currency": "VND"
+      },
+      "available": true
+   },
+   {
+      "id": 4,
+      "name": "HP Spectre x360",
+      "specs": {
+         "cpu": "Intel i5",
+         "ram": "8GB",
+         "storage": "256GB SSD"
+      },
+      "price": {
+         "amount": 23990000,
+         "currency": "VND"
+      },
+      "available": true
+   }
+]
