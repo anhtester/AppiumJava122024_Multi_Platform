@@ -1,60 +1,60 @@
 {
-   "platforms": {
-      "android": {
-         "devices": {
-            "pixel8": {
-               "platformName": "Android",
-               "platformVersion": "15",
-               "automationName": "UiAutomator2",
-               "deviceName": "Pixel_8_Pro_API_35_2",
-               "appPackage": "com.anhtester.mobile_app.taurus",
-               "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
-               "appAndroidPath": "src/test/resources/apps/flutter-app-release.apk",
-               "noReset": false,
-               "fullReset": false,
-               "autoGrantPermissions": true
-            },
-            "pixel9": {
-               "platformName": "Android",
-               "platformVersion": "14",
-               "automationName": "UiAutomator2",
-               "deviceName": "Pixel_9_Pro_XL_API_34",
-               "appPackage": "com.anhtester.mobile_app.taurus",
-               "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
-               "appAndroidPath": "src/test/resources/apps/flutter-app-release.apk",
-               "noReset": false,
-               "fullReset": false,
-               "autoGrantPermissions": true
-            }
-         }
-      },
-      "ios": {
-         "devices": {
-            "iphone14": {
-               "platformName": "iOS",
-               "platformVersion": "17",
-               "automationName": "XCUITest",
-               "deviceName": "iPhone 14 Pro Max",
-               "appPackage": "com.anhtester.mobile_app.taurus",
-               "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
-               "appPath": "path to app",
-               "noReset": false,
-               "fullReset": false,
-               "autoGrantPermissions": true
-            },
-            "iphone15": {
-               "platformName": "iOS",
-               "platformVersion": "18",
-               "automationName": "XCUITest",
-               "deviceName": "iPhone 15 Pro Max",
-               "appPackage": "com.anhtester.mobile_app.taurus",
-               "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
-               "appPath": "path to app",
-               "noReset": false,
-               "fullReset": false,
-               "autoGrantPermissions": true
-            }
-         }
+  "platforms": {
+    "android": {
+      "devices": {
+        "pixel8": {
+          "platformName": "Android",
+          "platformVersion": "14",
+          "automationName": "UiAutomator2",
+          "deviceName": "Pixel_8_Pro_API_34",
+          "appPackage": "com.anhtester.mobile_app.taurus",
+          "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
+          "appAndroidPath": "src/test/resources/apps/flutter-app-release.apk",
+          "noReset": false,
+          "fullReset": false,
+          "autoGrantPermissions": true
+        },
+        "pixel9": {
+          "platformName": "Android",
+          "platformVersion": "15",
+          "automationName": "UiAutomator2",
+          "deviceName": "Pixel_9_Pro_XL_API_35",
+          "appPackage": "com.anhtester.mobile_app.taurus",
+          "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
+          "appAndroidPath": "src/test/resources/apps/flutter-app-release.apk",
+          "noReset": false,
+          "fullReset": false,
+          "autoGrantPermissions": true
+        }
       }
-   }
+    },
+    "ios": {
+      "devices": {
+        "iphone14": {
+          "platformName": "iOS",
+          "platformVersion": "17",
+          "automationName": "XCUITest",
+          "deviceName": "iPhone 14 Pro Max",
+          "appPackage": "com.anhtester.mobile_app.taurus",
+          "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
+          "appPath": "path to app",
+          "noReset": false,
+          "fullReset": false,
+          "autoGrantPermissions": true
+        },
+        "iphone15": {
+          "platformName": "iOS",
+          "platformVersion": "18",
+          "automationName": "XCUITest",
+          "deviceName": "iPhone 15 Pro Max",
+          "appPackage": "com.anhtester.mobile_app.taurus",
+          "appActivity": "com.anhtester.mobile_app.taurus.MainActivity",
+          "appPath": "path to app",
+          "noReset": false,
+          "fullReset": false,
+          "autoGrantPermissions": true
+        }
+      }
+    }
+  }
 }

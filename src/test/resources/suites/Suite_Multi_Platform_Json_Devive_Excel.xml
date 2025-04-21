@@ -1,0 +1,49 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite Regression Test" verbose="1" parallel="tests">
+
+    <test name="Platform Android Test 1 - Taurus App">
+        <parameter name="platformName" value="Android"/>
+        <parameter name="deviceName" value="pixel8"/>
+        <parameter name="udid" value="emulator-5554"/>
+        <parameter name="host" value="127.0.0.1"/>
+        <parameter name="port" value="8000"/>
+        <parameter name="systemPort" value="8201"/>
+        <classes>
+            <class name="com.anhtester.Bai23_Excel_File.testcases.LoginTest">
+                <methods>
+                    <include name="testLoginSuccess"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Platform Android Test 2 - Taurus App">
+        <parameter name="platformName" value="Android"/>
+        <parameter name="deviceName" value="pixel9"/>
+        <parameter name="udid" value="emulator-5556"/>
+        <parameter name="host" value="127.0.0.1"/>
+        <parameter name="port" value="9000"/>
+        <parameter name="systemPort" value="8202"/>
+        <classes>
+            <class name="com.anhtester.Bai23_Excel_File.testcases.LoginTest">
+                <methods>
+                    <include name="testLoginFailWithUsernameInvalid"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!--    <test name="Platform iOS Test - Taurus App">-->
+    <!--        <parameter name="platformName" value="iOS"/>-->
+    <!--        <parameter name="deviceName" value="iphone14"/>-->
+    <!--        <parameter name="bundleId" value=""/>-->
+    <!--        <parameter name="host" value="127.0.0.1"/>-->
+    <!--        <parameter name="port" value="6000"/>-->
+    <!--        <parameter name="wdaLocalPort" value="8101"/>-->
+    <!--        <classes>-->
+    <!--            <class name="com.anhtester.Bai23_Excel_File.testcases.MenuTest"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+
+</suite>
