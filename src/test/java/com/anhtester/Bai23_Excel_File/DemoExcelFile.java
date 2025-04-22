@@ -1,5 +1,6 @@
 package com.anhtester.Bai23_Excel_File;
 
+import com.anhtester.constants.ConfigData;
 import com.anhtester.helpers.ExcelHelpers;
 import org.testng.annotations.Test;
 
@@ -7,9 +8,8 @@ public class DemoExcelFile {
 
     @Test
     public void testReadExcelFile() {
-        String filePath = "src/test/resources/test_data/data.xlsx";
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(filePath, "Login");
+        excelHelpers.setExcelFile(ConfigData.EXCEL_DATA_FILE_PATH, "Login");
 
         System.out.println("USERNAME: " + excelHelpers.getCellData(1, "USERNAME"));
         System.out.println("PASSWORD: " + excelHelpers.getCellData(1, "PASSWORD"));
@@ -19,14 +19,13 @@ public class DemoExcelFile {
 
     }
 
-//    @Test
-//    public void testWriteExcelFile() {
-//        String filePath = "src/test/resources/test_data/data.xlsx";
-//        ExcelHelpers excelHelpers = new ExcelHelpers();
-//        excelHelpers.setExcelFile(filePath, "Login");
-//
-//        excelHelpers.setCellData("Passed", 1, "EXPECTED_RESULT");
-//        excelHelpers.setCellData("Failed", 2, "EXPECTED_RESULT");
-//    }
+    @Test
+    public void testWriteExcelFile() {
+        ExcelHelpers excelHelpers = new ExcelHelpers();
+        excelHelpers.setExcelFile(ConfigData.EXCEL_DATA_FILE_PATH, "Login");
+
+        excelHelpers.setCellData("Passed", 1, "EXPECTED_RESULT");
+        excelHelpers.setCellData("Failed", 2, "EXPECTED_RESULT");
+    }
 
 }

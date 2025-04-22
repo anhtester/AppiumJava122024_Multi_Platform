@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -81,7 +82,7 @@ public class ExcelHelpers {
         return row;
     }
 
-
+    //Get Excel data from the sheet
     public Object[][] getExcelData(String excelPath, String sheetName) {
         Object[][] data = null;
         Workbook workbook = null;
@@ -123,7 +124,7 @@ public class ExcelHelpers {
             int noOfRows = sheet.getPhysicalNumberOfRows();
             int noOfCols = row.getLastCellNum();
 
-            System.out.println(noOfRows + " - " + noOfCols);
+            System.out.println("Row: " + (noOfRows - 1) + " - Column: " + noOfCols);
 
             Cell cell;
             data = new Object[noOfRows - 1][noOfCols];
@@ -204,6 +205,130 @@ public class ExcelHelpers {
 
         return data;
 
+    }
+
+    // Get data from specific rows
+    public Object[][] getDataFromSpecificRows(String excelPath, String sheetName, int[] rowNumbers) {
+        System.out.println("Excel File: " + excelPath);
+        System.out.println("Sheet Name: " + sheetName);
+        System.out.println("Reading data from specific rows: " + Arrays.toString(rowNumbers));
+
+        Object[][] data = null;
+
+        try {
+            File f = new File(excelPath);
+
+            if (!f.exists()) {
+                System.out.println("File Excel path not found.");
+                throw new FileNotFoundException("File Excel path not found.");
+            }
+
+            fis = new FileInputStream(excelPath);
+            workbook = WorkbookFactory.create(fis);
+            sheet = workbook.getSheet(sheetName);
+
+            if (sheet == null) {
+                System.out.println("Sheet name not found.");
+                throw new RuntimeException("Sheet name not found.");
+            }
+
+            int columns = getColumns();
+            System.out.println("Column count: " + columns);
+
+            // Khởi tạo mảng data với kích thước bằng số lượng dòng được chỉ định
+            data = new Object[rowNumbers.length][columns];
+
+            // Đọc dữ liệu từ các dòng được chỉ định
+            for (int i = 0; i < rowNumbers.length; i++) {
+                int rowNum = rowNumbers[i];
+                // Kiểm tra xem dòng có tồn tại không
+                if (rowNum > sheet.getLastRowNum()) {
+                    System.out.println("WARNING: Row " + rowNum + " does not exist in the sheet.");
+                    // Gán giá trị rỗng cho dòng không tồn tại
+                    for (int j = 0; j < columns; j++) {
+                        data[i][j] = "";
+                    }
+                    continue;
+                }
+
+                for (int j = 0; j < columns; j++) {
+                    data[i][j] = getCellData(rowNum, j);
+                }
+            }
+
+            // Đóng workbook và FileInputStream
+            workbook.close();
+            fis.close();
+
+        } catch (Exception e) {
+            System.out.println("Exception in getDataFromSpecificRows: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    // Get data from specific rows with hashtable
+    public Object[][] getDataHashTableFromSpecificRows(String excelPath, String sheetName, int[] rowNumbers) {
+        System.out.println("Excel File: " + excelPath);
+        System.out.println("Sheet Name: " + sheetName);
+        System.out.println("Reading data from specific rows: " + Arrays.toString(rowNumbers));
+
+        Object[][] data = null;
+
+        try {
+            File f = new File(excelPath);
+
+            if (!f.exists()) {
+                System.out.println("File Excel path not found.");
+                throw new FileNotFoundException("File Excel path not found.");
+            }
+
+            fis = new FileInputStream(excelPath);
+            workbook = WorkbookFactory.create(fis);
+            sheet = workbook.getSheet(sheetName);
+
+            if (sheet == null) {
+                System.out.println("Sheet name not found.");
+                throw new RuntimeException("Sheet name not found.");
+            }
+
+            int columns = getColumns();
+            // Khởi tạo mảng data với kích thước bằng số lượng dòng được chỉ định
+            data = new Object[rowNumbers.length][1];
+
+            // Đọc dữ liệu từ các dòng được chỉ định
+            for (int i = 0; i < rowNumbers.length; i++) {
+                int rowNum = rowNumbers[i];
+                // Kiểm tra xem dòng có tồn tại không
+                if (rowNum > sheet.getLastRowNum()) {
+                    System.out.println("WARNING: Row " + rowNum + " does not exist in the sheet.");
+                    data[i][0] = new Hashtable<String, String>();
+                    continue;
+                }
+
+                Hashtable<String, String> table = new Hashtable<>();
+                for (int j = 0; j < columns; j++) {
+                    // Lấy tên cột từ dòng đầu tiên (header)
+                    String columnName = getCellData(0, j);
+                    // Lấy giá trị từ dòng hiện tại và cột j
+                    String cellValue = getCellData(rowNum, j);
+                    // Thêm vào Hashtable
+                    table.put(columnName, cellValue);
+                }
+                data[i][0] = table;
+            }
+
+            // Đóng workbook và FileInputStream
+            workbook.close();
+            fis.close();
+
+        } catch (Exception e) {
+            System.out.println("Exception in getDataHashTableFromSpecificRows: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return data;
     }
 
     public int getRowContains(String sTestCaseName, int colNum) {
