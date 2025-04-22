@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="Login Test with Specific Rows">
+        <!-- Định nghĩa các dòng bạn muốn đọc dữ liệu từ Excel (1, 3, 5) -->
+        <parameter name="rowIndices" value="1,3"/>
+        <classes>
+            <class name="com.anhtester.Bai23_Excel_File.DemoDataProvider">
+                <methods>
+                    <include name="testLoginWithDynamicRows"/>
+                    <include name="testLoginWithDynamicRowsHashtable"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!-- Bạn có thể định nghĩa test khác với các dòng khác -->
+    <test name="Login Test with Different Rows">
+        <parameter name="rowIndices" value="2,3"/>
+        <classes>
+            <class name="com.anhtester.Bai23_Excel_File.DemoDataProvider">
+                <methods>
+                    <include name="testLoginWithDynamicRows"/>
+                    <include name="testLoginWithDynamicRowsHashtable"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

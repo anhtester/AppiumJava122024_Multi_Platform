@@ -53,4 +53,23 @@ public class DemoDataProvider {
         System.out.println("Password: " + password);
     }
 
+    // Sử dụng DataProvider động với tham số từ testng.xml
+    @Test(dataProvider = "dynamic_rows", dataProviderClass = DataProviderFactory.class)
+    public void testLoginWithDynamicRows(String username, String password) {
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+
+    }
+
+    // Sử dụng DataProvider động dạng Hashtable với tham số từ testng.xml
+    @Test(dataProvider = "dynamic_rows_hashtable", dataProviderClass = DataProviderFactory.class)
+    public void testLoginWithDynamicRowsHashtable(Hashtable<String, String> data) {
+        String username = data.get("USERNAME");
+        String password = data.get("PASSWORD");
+
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+
+    }
+
 }
