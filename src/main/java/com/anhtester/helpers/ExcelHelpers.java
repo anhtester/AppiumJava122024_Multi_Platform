@@ -268,7 +268,7 @@ public class ExcelHelpers {
         return data;
     }
 
-    // Get data from specific rows with hashtable
+    // Get data from specific rows with Hashtable
     public Object[][] getDataHashTableFromSpecificRows(String excelPath, String sheetName, int[] rowNumbers) {
         System.out.println("Excel File: " + excelPath);
         System.out.println("Sheet Name: " + sheetName);
@@ -472,8 +472,9 @@ public class ExcelHelpers {
             System.out.println("Write data to excel file successfully.");
 
         } catch (Exception e) {
-            e.getMessage();
-            System.out.println(e.getMessage());
+            //e.getMessage();
+            //System.out.println(e.getMessage());
+            System.out.println("Error: column name not found.");
         }
     }
 

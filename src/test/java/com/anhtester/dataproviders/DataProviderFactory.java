@@ -19,7 +19,7 @@ public class DataProviderFactory {
         ExcelHelpers excelHelpers = new ExcelHelpers();
         return excelHelpers.getExcelData(
                 ConfigData.EXCEL_DATA_FILE_PATH,
-                "Login"
+                "Login_Excel"
         );
     }
 
@@ -28,9 +28,9 @@ public class DataProviderFactory {
         ExcelHelpers excelHelpers = new ExcelHelpers();
         return excelHelpers.getDataHashTable(
                 ConfigData.EXCEL_DATA_FILE_PATH,
-                "Login",
-                2,
-                3
+                "Login_Excel",
+                3,
+                5
         );
     }
 
@@ -38,10 +38,10 @@ public class DataProviderFactory {
     public Object[][] login_specific_rows() {
         ExcelHelpers excelHelpers = new ExcelHelpers();
         // Đọc dữ liệu từ các dòng 1, 3
-        int[] specificRows = new int[]{1, 3};
+        int[] specificRows = new int[]{2, 4};
         return excelHelpers.getDataFromSpecificRows(
                 ConfigData.EXCEL_DATA_FILE_PATH,
-                "Login",
+                "Login_Excel",
                 specificRows
         );
     }
@@ -53,12 +53,12 @@ public class DataProviderFactory {
         int[] specificRows = new int[]{1, 3};
         return excelHelpers.getDataHashTableFromSpecificRows(
                 ConfigData.EXCEL_DATA_FILE_PATH,
-                "Login",
+                "Login_Excel",
                 specificRows
         );
     }
 
-    
+
     // Truyền tham số từ suite XML vào DataProvider
 
     /**

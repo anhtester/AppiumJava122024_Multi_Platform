@@ -1,6 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite Regression Test" verbose="1" parallel="none">
+<suite name="Suite Regression Test" verbose="1" parallel="tests">
+
+    <listeners>
+        <listener class-name="com.anhtester.listeners.TestListener"/>
+    </listeners>
 
     <test name="Platform Android Test 1 - Taurus App">
         <parameter name="platformName" value="Android"/>
