@@ -2,19 +2,19 @@
 
 <suite name="Suite Regression Test" verbose="1">
 
-   <listeners>
-      <listener class-name="com.anhtester.listeners.TestListener"/>
-   </listeners>
+    <!--    <listeners>-->
+    <!--        <listener class-name="com.anhtester.listeners.TestListener"/>-->
+    <!--    </listeners>-->
 
-   <test name="Test Listener TestNG">
-      <parameter name="platformName" value="Android"/>
-      <parameter name="deviceName" value="pixel9"/>
-      <parameter name="udid" value="emulator-5554"/>
-      <parameter name="host" value="127.0.0.1"/>
-      <parameter name="port" value="9000"/>
-      <parameter name="systemPort" value="9201"/>
-      <classes>
-         <class name="com.anhtester.Bai24_Listeners.testcases.LoginTest"/>
-      </classes>
-   </test>
+    <test name="Test Listener TestNG">
+        <parameter name="platformName" value="Android"/>
+        <parameter name="deviceName" value="pixel9"/>
+        <parameter name="udid" value="emulator-5554"/>
+        <parameter name="host" value="127.0.0.1"/>
+        <parameter name="port" value="9000"/>
+        <parameter name="systemPort" value="9201"/>
+        <classes>
+            <class name="com.anhtester.Bai24_Listeners.testcases.LoginTest"/>
+        </classes>
+    </test>
 </suite>

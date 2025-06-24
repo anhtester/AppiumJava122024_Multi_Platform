@@ -6,26 +6,27 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest_Json_Device {
 
-   //Khai báo các đối tượng Page class liên quan
-   private LoginPage loginPage;
+    //Khai báo các đối tượng Page class liên quan
+    private LoginPage loginPage;
 
-   @Test
-   public void testLoginSuccess() {
-      //Khởi tạo đối tượng Page class
-      loginPage = new LoginPage();
 
-      //Gọi hàm từ Page class sử dụng
-      loginPage.login("admin", "admin");
-      loginPage.verifyLoginSuccess();
-   }
+    @Test
+    public void testLoginSuccess() {
+        //Khởi tạo đối tượng Page class
+        loginPage = new LoginPage();
 
-   @Test
-   public void testLoginFailWithUsernameInvalid() {
-      //Khởi tạo đối tượng Page class
-      loginPage = new LoginPage();
+        //Gọi hàm từ Page class sử dụng
+        loginPage.login("admin", "admin");
+        loginPage.verifyLoginSuccess();
+    }
 
-      //Gọi hàm từ Page class sử dụng
-      loginPage.login("admin123", "admin");
-      loginPage.verifyLoginFail();
-   }
+    @Test
+    public void testLoginFailWithUsernameInvalid() {
+        //Khởi tạo đối tượng Page class
+        loginPage = new LoginPage();
+
+        //Gọi hàm từ Page class sử dụng
+        loginPage.login("admin123", "admin");
+        loginPage.verifyLoginFail();
+    }
 }
