@@ -21,7 +21,7 @@ public class CaptureHelpers {
     /**
      * Hàm static để chụp ảnh màn hình và lưu vào đường dẫn file được chỉ định.
      *
-     * @param filePath Đường dẫn file nơi muốn lưu ảnh chụp màn hình (ví dụ: "screenshots/image.png").
+     * @param fileName Đường dẫn file nơi muốn lưu ảnh chụp màn hình (ví dụ: "screenshots/image.png").
      */
     public static void captureScreenshot(String fileName) {
         try {
