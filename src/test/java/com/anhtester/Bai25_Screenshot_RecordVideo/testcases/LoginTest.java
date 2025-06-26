@@ -2,7 +2,6 @@ package com.anhtester.Bai25_Screenshot_RecordVideo.testcases;
 
 import com.anhtester.Bai25_Screenshot_RecordVideo.pages.LoginPage;
 import com.anhtester.common.BaseTest_Json_Device;
-import com.anhtester.helpers.CaptureHelpers;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest_Json_Device {
@@ -14,7 +13,7 @@ public class LoginTest extends BaseTest_Json_Device {
         loginPage = new LoginPage();
 
         loginPage.login("admin", "admin");
-        CaptureHelpers.captureScreenshot("testLoginSuccess");
+        //CaptureHelpers.captureScreenshot("testLoginSuccess");
         loginPage.verifyLoginSuccess();
     }
 
@@ -23,7 +22,7 @@ public class LoginTest extends BaseTest_Json_Device {
         loginPage = new LoginPage();
 
         loginPage.login("admin123", "admin");
-        CaptureHelpers.captureScreenshot("testLoginFailWithUsernameInvalid");
+        //CaptureHelpers.captureScreenshot("testLoginFailWithUsernameInvalid");
         loginPage.verifyLoginFail();
     }
 }

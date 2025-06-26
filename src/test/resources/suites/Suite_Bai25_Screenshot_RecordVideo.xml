@@ -9,7 +9,8 @@
         <parameter name="port" value="9000"/>
         <parameter name="systemPort" value="9201"/>
         <classes>
-            <class name="com.anhtester.Bai25_Screenshot_RecordVideo.testcases.LoginTest"/>
+            <!--            <class name="com.anhtester.Bai25_Screenshot_RecordVideo.testcases.LoginTest"/>-->
+            <class name="com.anhtester.Bai25_Screenshot_RecordVideo.testcases.MenuTest"/>
         </classes>
     </test>
 </suite>

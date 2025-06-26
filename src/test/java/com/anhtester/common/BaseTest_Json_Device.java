@@ -6,7 +6,6 @@ import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.MobileUI;
 import com.anhtester.listeners.TestListener;
-import com.anhtester.utils.DateUtils;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -183,10 +182,10 @@ public class BaseTest_Json_Device {
             // Lưu driver vào ThreadLocal
             DriverManager.setDriver(driver);
 
-            // Tạo tên file video duy nhất dựa trên device và thread
-            SystemHelpers.createFolder(SystemHelpers.getCurrentDir() + "exports/videos");
-            videoFileName = SystemHelpers.getCurrentDir() + "exports/videos/recording_" + deviceName + "_" + Thread.currentThread().getId() + "_" + SystemHelpers.makeSlug(DateUtils.getCurrentDateTime()) + ".mp4";
-            CaptureHelpers.startRecording();
+//            // Tạo tên file video duy nhất dựa trên device và thread
+//            SystemHelpers.createFolder(SystemHelpers.getCurrentDir() + "exports/videos");
+//            videoFileName = SystemHelpers.getCurrentDir() + "exports/videos/recording_" + deviceName + "_" + Thread.currentThread().getId() + "_" + SystemHelpers.makeSlug(DateUtils.getCurrentDateTime()) + ".mp4";
+//            CaptureHelpers.startRecording();
 
         } catch (Exception e) {
             System.err.println("❌Lỗi nghiêm trọng khi khởi tạo driver cho thread " + Thread.currentThread().getId() + " trên device " + deviceName + ": " + e.getMessage());
