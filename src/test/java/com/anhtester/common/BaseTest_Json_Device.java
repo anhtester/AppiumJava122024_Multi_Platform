@@ -6,6 +6,7 @@ import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.MobileUI;
 import com.anhtester.listeners.TestListener;
+import com.anhtester.utils.LogUtils;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -37,8 +38,8 @@ public class BaseTest_Json_Device {
      * @param port Port của Appium server
      */
     public void runAppiumServer(String host, String port) {
-        System.out.println("HOST: " + host);
-        System.out.println("PORT: " + port);
+        LogUtils.info("HOST: " + host);
+        LogUtils.info("PORT: " + port);
 
         //Set host and port
         if (host == null || host.isEmpty()) {
@@ -70,9 +71,9 @@ public class BaseTest_Json_Device {
         service.start();
 
         if (service.isRunning()) {
-            System.out.println("##### Appium server started on " + HOST + ":" + PORT);
+            LogUtils.info("##### Appium server started on " + HOST + ":" + PORT);
         } else {
-            System.out.println("Failed to start Appium server on LOCAL.");
+            LogUtils.error("Failed to start Appium server on LOCAL.");
         }
 
     }
@@ -94,28 +95,28 @@ public class BaseTest_Json_Device {
     public void setUpDriver(String platformName, String deviceName, @Optional String udid, String host, String port, @Optional String bundleId, @Optional String wdaLocalPort, @Optional String systemPort) {
         //Khởi động Appium server dưới máy local
         if (ConfigData.APPIUM_DRIVER_LOCAL_SERVICE.trim().equalsIgnoreCase("true")) {
-            System.out.println("Khởi động Appium server LOCAL: " + host + ":" + port);
+            LogUtils.info("Khởi động Appium server LOCAL: " + host + ":" + port);
             runAppiumServer(host, port);
         } else {
-            System.out.println("Chạy Appium server từ xa hoặc đã bật sẵn.");
+            LogUtils.warn("Chạy Appium server từ xa hoặc đã bật sẵn.");
         }
 
         //Print tất cả các thông số
-        System.out.println("platformName: " + platformName);
-        System.out.println("platformVersion: " + ConfigData.getValueJsonConfig(platformName, deviceName, "platformVersion"));
-        System.out.println("deviceName: " + ConfigData.getValueJsonConfig(platformName, deviceName, "deviceName"));
-        System.out.println("udid: " + ConfigData.getValueJsonConfig(platformName, deviceName, "udid"));
-        System.out.println("automationName: " + ConfigData.getValueJsonConfig(platformName, deviceName, "automationName"));
-        System.out.println("appPackage: " + ConfigData.getValueJsonConfig(platformName, deviceName, "appPackage"));
-        System.out.println("appActivity: " + ConfigData.getValueJsonConfig(platformName, deviceName, "appActivity"));
-        System.out.println("noReset: " + ConfigData.getValueJsonConfig(platformName, deviceName, "noReset"));
-        System.out.println("fullReset: " + ConfigData.getValueJsonConfig(platformName, deviceName, "fullReset"));
-        System.out.println("autoGrantPermissions: " + ConfigData.getValueJsonConfig(platformName, deviceName, "autoGrantPermissions"));
-        System.out.println("host: " + host);
-        System.out.println("port: " + port);
-        System.out.println("bundleId: " + bundleId);
-        System.out.println("wdaLocalPort: " + wdaLocalPort);
-        System.out.println("systemPort: " + systemPort);
+        LogUtils.info("platformName: " + platformName);
+        LogUtils.info("platformVersion: " + ConfigData.getValueJsonConfig(platformName, deviceName, "platformVersion"));
+        LogUtils.info("deviceName: " + ConfigData.getValueJsonConfig(platformName, deviceName, "deviceName"));
+        LogUtils.info("udid: " + ConfigData.getValueJsonConfig(platformName, deviceName, "udid"));
+        LogUtils.info("automationName: " + ConfigData.getValueJsonConfig(platformName, deviceName, "automationName"));
+        LogUtils.info("appPackage: " + ConfigData.getValueJsonConfig(platformName, deviceName, "appPackage"));
+        LogUtils.info("appActivity: " + ConfigData.getValueJsonConfig(platformName, deviceName, "appActivity"));
+        LogUtils.info("noReset: " + ConfigData.getValueJsonConfig(platformName, deviceName, "noReset"));
+        LogUtils.info("fullReset: " + ConfigData.getValueJsonConfig(platformName, deviceName, "fullReset"));
+        LogUtils.info("autoGrantPermissions: " + ConfigData.getValueJsonConfig(platformName, deviceName, "autoGrantPermissions"));
+        LogUtils.info("host: " + host);
+        LogUtils.info("port: " + port);
+        LogUtils.info("bundleId: " + bundleId);
+        LogUtils.info("wdaLocalPort: " + wdaLocalPort);
+        LogUtils.info("systemPort: " + systemPort);
 
         AppiumDriver driver = null;
 
@@ -149,7 +150,7 @@ public class BaseTest_Json_Device {
                 }
 
                 driver = new AndroidDriver(new URL("http://" + host + ":" + port), options);
-                System.out.println("Khởi tạo AndroidDriver cho thread: " + Thread.currentThread().getId() + " trên thiết bị: " + deviceName);
+                LogUtils.info("Khởi tạo AndroidDriver cho thread: " + Thread.currentThread().getId() + " trên thiết bị: " + deviceName);
 
 
             } else if (platformName.equalsIgnoreCase("iOS")) {
@@ -173,7 +174,7 @@ public class BaseTest_Json_Device {
                 // options.setXcodeSigningId("iPhone Developer");
 
                 driver = new IOSDriver(new URL("http://" + host + ":" + port), options);
-                System.out.println("Khởi tạo IOSDriver cho thread: " + Thread.currentThread().getId() + " trên thiết bị: " + deviceName);
+                LogUtils.info("Khởi tạo IOSDriver cho thread: " + Thread.currentThread().getId() + " trên thiết bị: " + deviceName);
 
             } else {
                 throw new IllegalArgumentException("Platform không hợp lệ: " + platformName);
@@ -204,7 +205,7 @@ public class BaseTest_Json_Device {
             CaptureHelpers.stopRecording(videoFileName);
 
             DriverManager.quitDriver();
-            System.out.println("##### Driver quit and removed.");
+            LogUtils.info("##### Driver quit and removed.");
         }
 
         //Dừng Appium server LOCAL nếu đã khởi động
@@ -219,7 +220,7 @@ public class BaseTest_Json_Device {
     public void stopAppiumServer() {
         if (service != null && service.isRunning()) {
             service.stop();
-            System.out.println("##### Appium server stopped on " + HOST + ":" + PORT);
+            LogUtils.info("##### Appium server stopped on " + HOST + ":" + PORT);
         }
         //Kill process on port
         SystemHelpers.killProcessOnPort(PORT);
@@ -241,9 +242,9 @@ public class BaseTest_Json_Device {
 
         //Handle Alert Message, check displayed hoặc getText/getAttribute để kiểm tra nội dung message
         if (DriverManager.getDriver().findElement(AppiumBy.accessibilityId("Downloaded")).isDisplayed()) {
-            System.out.println("Database demo downloaded.");
+            LogUtils.info("Database demo downloaded.");
         } else {
-            System.out.println("Warning!! Can not download Database demo.");
+            LogUtils.info("Warning!! Can not download Database demo.");
         }
         MobileUI.sleep(2);
         DriverManager.getDriver().findElement(AppiumBy.accessibilityId("Back")).click();
