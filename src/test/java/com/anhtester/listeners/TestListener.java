@@ -3,6 +3,7 @@ package com.anhtester.listeners;
 import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.MobileUI;
+import com.anhtester.reports.AllureManager;
 import com.anhtester.utils.DateUtils;
 import com.anhtester.utils.LogUtils;
 import org.testng.ITestContext;
@@ -66,8 +67,10 @@ public class TestListener implements ITestListener {
 
         SystemHelpers.createFolder(SystemHelpers.getCurrentDir() + "exports/videos");
         String videoFileName = SystemHelpers.getCurrentDir() + "exports/videos/recording_" + result.getName() + "_" + Thread.currentThread().getId() + "_" + SystemHelpers.makeSlug(DateUtils.getCurrentDateTime()) + ".mp4";
-        MobileUI.sleep(5);
+        MobileUI.sleep(2);
         CaptureHelpers.stopRecording(videoFileName);
+
+        AllureManager.saveScreenshotPNG();
 
         //Connect Jira
         //Create new issue on Jira

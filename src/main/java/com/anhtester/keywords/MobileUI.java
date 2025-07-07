@@ -2,7 +2,9 @@ package com.anhtester.keywords;
 
 import com.anhtester.constants.ConfigData;
 import com.anhtester.drivers.DriverManager;
+import com.anhtester.reports.AllureManager;
 import com.anhtester.utils.LogUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Pause;
@@ -69,8 +71,7 @@ public class MobileUI {
 
     private static Point getCenterOfElement(Point location, Dimension size) {
         // No log needed for private helper, logging happens in the calling public method
-        return new Point(location.getX() + size.getWidth() / 2,
-                location.getY() + size.getHeight() / 2);
+        return new Point(location.getX() + size.getWidth() / 2, location.getY() + size.getHeight() / 2);
     }
 
     public static void tap(WebElement element) {
@@ -80,10 +81,7 @@ public class MobileUI {
         Dimension size = element.getSize();
         Point centerOfElement = getCenterOfElement(location, size);
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
-        Sequence sequence = new Sequence(finger, 1)
-                .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerOfElement))
-                .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(finger, Duration.ofMillis(500))) // Note: Default pause is 500ms here
+        Sequence sequence = new Sequence(finger, 1).addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerOfElement)).addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg())).addAction(new Pause(finger, Duration.ofMillis(500))) // Note: Default pause is 500ms here
                 .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         getDriver().perform(Collections.singletonList(sequence));
@@ -189,30 +187,35 @@ public class MobileUI {
         getDriver().executeScript("mobile: scrollGesture", scrollParams);
     }
 
+    @Step("Click element: {0} within {1}s")
     public static void clickElement(By locator, int second) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clicking element located by: " + locator + " within " + second + "s.");
         waitForElementToBeClickable(locator, second).click();
     }
 
+    @Step("Click element: {0}")
     public static void clickElement(By locator) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clicking element located by: " + locator + " within default timeout (" + DEFAULT_TIMEOUT + "s).");
         waitForElementToBeClickable(locator).click();
     }
 
+    @Step("Click element: {0} within {1}s")
     public static void clickElement(WebElement element, int second) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clicking element: " + element + " within " + second + "s.");
         waitForElementToBeClickable(element, second).click();
     }
 
+    @Step("Click element: {0}")
     public static void clickElement(WebElement element) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clicking element: " + element + " within default timeout (" + DEFAULT_TIMEOUT + "s).");
         waitForElementToBeClickable(element).click();
     }
 
+    @Step("Set text '{1}' on element {0}")
     public static void setText(By locator, String text) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Setting text '" + text + "' on element located by: " + locator + " with default timeout.");
@@ -223,6 +226,7 @@ public class MobileUI {
         LogUtils.info("[MobileUI] Set text completed for locator: " + locator);
     }
 
+    @Step("Set text '{1}' on element {0} within {2}s")
     public static void setText(By locator, String text, int second) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Setting text '" + text + "' on element located by: " + locator + " with timeout " + second + "s.");
@@ -233,6 +237,7 @@ public class MobileUI {
         LogUtils.info("[MobileUI] Set text completed for locator: " + locator);
     }
 
+    @Step("Set text '{1}' on element {0}")
     public static void setText(WebElement element, String text) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Setting text '" + text + "' on element: " + element + " with default timeout.");
@@ -244,6 +249,7 @@ public class MobileUI {
 
     }
 
+    @Step("Set text '{1}' on element {0} within {2}s")
     public static void setText(WebElement element, String text, int second) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Setting text '" + text + "' on element: " + element + " with timeout " + second + "s.");
@@ -254,6 +260,7 @@ public class MobileUI {
         LogUtils.info("[MobileUI] Set text completed for element: " + element);
     }
 
+    @Step("Clear text on element {0}")
     public static void clearText(By locator) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clearing text on element located by: " + locator + " with default timeout.");
@@ -263,6 +270,7 @@ public class MobileUI {
         LogUtils.info("[MobileUI] Clear text completed for locator: " + locator);
     }
 
+    @Step("Clear text on element {0} within {1}s")
     public static void clearText(By locator, int second) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clearing text on element located by: " + locator + " with timeout " + second + "s.");
@@ -272,6 +280,7 @@ public class MobileUI {
         LogUtils.info("[MobileUI] Clear text completed for locator: " + locator);
     }
 
+    @Step("Clear text on element {0}")
     public static void clearText(WebElement element) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clearing text on element: " + element + " with default timeout.");
@@ -281,6 +290,7 @@ public class MobileUI {
         LogUtils.info("[MobileUI] Clear text completed for element: " + element);
     }
 
+    @Step("Clear text on element {0} within {1}s")
     public static void clearText(WebElement element, int second) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Clearing text on element: " + element + " with timeout " + second + "s.");
@@ -290,21 +300,25 @@ public class MobileUI {
         LogUtils.info("[MobileUI] Clear text completed for element: " + element);
     }
 
+    @Step("Get text from element {0}")
     public static String getElementText(By locator) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Getting text from element located by: " + locator + " with default timeout.");
         WebElement element = waitForElementVisible(locator);
         String text = element.getText();
         LogUtils.info("[MobileUI] Retrieved text: '" + text + "'");
+        AllureManager.saveTextLog("➡\uFE0F TEXT: " + text);
         return text;
     }
 
+    @Step("Get text from element {0} within {1}s")
     public static String getElementText(By locator, int second) {
         sleep(STEP_ACTION_TIMEOUT);
         LogUtils.info("[MobileUI] Getting text from element located by: " + locator + " with timeout " + second + "s.");
         WebElement element = waitForElementVisible(locator, second);
         String text = element.getText();
         LogUtils.info("[MobileUI] Retrieved text: '" + text + "'");
+        AllureManager.saveTextLog("➡\uFE0F TEXT: " + text);
         return text;
     }
 

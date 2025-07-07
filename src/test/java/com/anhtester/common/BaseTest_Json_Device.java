@@ -16,6 +16,7 @@ import io.appium.java_client.ios.options.XCUITestOptions;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import io.qameta.allure.Step;
 import org.testng.annotations.*;
 
 import java.net.URL;
@@ -90,6 +91,7 @@ public class BaseTest_Json_Device {
      * @param wdaLocalPort Port WDA (iOS parallel)
      * @param systemPort   Port System (Android parallel)
      */
+    @Step("Set up Appium driver for {0} on {1}")
     @BeforeMethod(alwaysRun = true)
     @Parameters({"platformName", "deviceName", "udid", "host", "port", "bundleId", "wdaLocalPort", "systemPort"})
     public void setUpDriver(String platformName, String deviceName, @Optional String udid, String host, String port, @Optional String bundleId, @Optional String wdaLocalPort, @Optional String systemPort) {
@@ -197,6 +199,7 @@ public class BaseTest_Json_Device {
     }
 
     @AfterMethod(alwaysRun = true)
+    @Step("Close app")
     public void tearDownDriver() {
         if (DriverManager.getDriver() != null) {
 
@@ -231,6 +234,8 @@ public class BaseTest_Json_Device {
      *
      * @param dataNumber Số thứ tự của dữ liệu cần tải xuống
      */
+
+    @Step("Download data from server: {dataNumber}")
     public void downloadDataFromServer(int dataNumber) {
         //Navigate to config to download database demo
         DriverManager.getDriver().findElement(AppiumBy.accessibilityId("Config")).click();
