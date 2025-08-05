@@ -191,6 +191,9 @@ public class MobileUI {
    public static void clickElement(By locator, int second) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Clicking element located by: " + locator + " within " + second + "s.");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       waitForElementToBeClickable(locator, second).click();
    }
 
@@ -198,6 +201,9 @@ public class MobileUI {
    public static void clickElement(By locator) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Clicking element located by: " + locator + " within default timeout (" + DEFAULT_TIMEOUT + "s).");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       waitForElementToBeClickable(locator).click();
    }
 
@@ -205,6 +211,9 @@ public class MobileUI {
    public static void clickElement(WebElement element, int second) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Clicking element: " + element + " within " + second + "s.");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       waitForElementToBeClickable(element, second).click();
    }
 
@@ -212,6 +221,9 @@ public class MobileUI {
    public static void clickElement(WebElement element) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Clicking element: " + element + " within default timeout (" + DEFAULT_TIMEOUT + "s).");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       waitForElementToBeClickable(element).click();
    }
 
@@ -219,6 +231,9 @@ public class MobileUI {
    public static void setText(By locator, String text) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Setting text '" + text + "' on element located by: " + locator + " with default timeout.");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       WebElement element = waitForElementVisible(locator);
       element.click(); // Often needed before clear/sendKeys
       element.clear();
@@ -230,6 +245,9 @@ public class MobileUI {
    public static void setText(By locator, String text, int second) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Setting text '" + text + "' on element located by: " + locator + " with timeout " + second + "s.");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       WebElement element = waitForElementVisible(locator, second);
       element.click();
       element.clear();
@@ -241,6 +259,9 @@ public class MobileUI {
    public static void setText(WebElement element, String text) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Setting text '" + text + "' on element: " + element + " with default timeout.");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       WebElement elm = waitForElementVisible(element);
       elm.click();
       elm.clear();
@@ -253,6 +274,9 @@ public class MobileUI {
    public static void setText(WebElement element, String text, int second) {
       sleep(STEP_ACTION_TIMEOUT);
       LogUtils.info("[MobileUI] Setting text '" + text + "' on element: " + element + " with timeout " + second + "s.");
+      if (ConfigData.SCREENSHOT_ALL_STEP.equalsIgnoreCase("true")) {
+         AllureManager.saveScreenshotPNG();
+      }
       WebElement elm = waitForElementVisible(element, second);
       elm.click();
       elm.clear();

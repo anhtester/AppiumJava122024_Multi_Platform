@@ -152,9 +152,17 @@ public class BaseTest_Json_Device {
                options.setSystemPort(Integer.parseInt(systemPort));
             }
 
+            //Setting for Appium Device Farm 10x
+//            options.setCapability("df:build", "Appium Device Farm");
+//            options.setCapability("df:accesskey", "admin_GwRT45MxfxLuMI");
+//            options.setCapability("df:token", "0431f63c-6d9b-4ec8-8a79-262d605b4931");
+//            options.setCapability("df:recordVideo", "true");
+//            options.setCapability("df:videoTimeLimit", "600");
+//            options.setCapability("df:screenshotOnAll", "true");
+//            driver = new AndroidDriver(new URL("http://" + host + ":" + port + "/wd/hub"), options);
+
             driver = new AndroidDriver(new URL("http://" + host + ":" + port), options);
             LogUtils.info("Khởi tạo AndroidDriver cho thread: " + Thread.currentThread().getId() + " trên thiết bị: " + deviceName);
-
 
          } else if (platformName.equalsIgnoreCase("iOS")) {
             XCUITestOptions options = new XCUITestOptions();

@@ -6,11 +6,11 @@
       <parameter name="deviceName" value="pixel9"/>
       <parameter name="udid" value="emulator-5554"/>
       <parameter name="host" value="127.0.0.1"/>
-      <parameter name="port" value="9000"/>
-      <parameter name="systemPort" value="9201"/>
+      <parameter name="port" value="4723"/>
+      <parameter name="systemPort" value="9200"/>
       <classes>
          <class name="com.anhtester.Bai27_AllureReport.testcases.LoginTest"/>
-         <class name="com.anhtester.Bai27_AllureReport.testcases.MenuTest"/>
+         <!--         <class name="com.anhtester.Bai27_AllureReport.testcases.MenuTest"/>-->
       </classes>
    </test>
 </suite>
